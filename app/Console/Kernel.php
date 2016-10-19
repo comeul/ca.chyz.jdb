@@ -29,8 +29,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('jdb:set-cache')
             ->hourly();
 
-        $schedule->command()
-            ->everyThirtyMinutes('jdb:create-fdr');
+        $schedule->command('jdb:create-fdr')
+            ->everyThirtyMinutes();
     }
 
     /**
