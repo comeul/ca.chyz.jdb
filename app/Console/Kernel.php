@@ -24,8 +24,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('jdb:set-cache')
+            ->dailyAt('00:30')
+            ->dailyAt('06:30')
+            ->dailyAt('12:30')
+            ->dailyAt('18:30');
     }
 
     /**
