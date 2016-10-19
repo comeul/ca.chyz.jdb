@@ -80,6 +80,20 @@ return [
             'engine' => null,
         ],
 
+        'wordpress_fdr' => [
+            'driver' => 'mysql',
+            'host' => env('WP_DB_HOST', 'localhost'),
+            'port' => env('WP_DB_PORT', '3306'),
+            'database' => env('WP_DB_DATABASE', 'forge'),
+            'username' => env('WP_DB_USERNAME', 'forge'),
+            'password' => env('WP_DB_PASSWORD', ''),
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', 'localhost'),

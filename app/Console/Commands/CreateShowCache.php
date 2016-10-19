@@ -10,13 +10,14 @@ use Illuminate\Support\Facades\Log;
 
 class CreateShowCache extends Command
 {
+    private $emListe;
+    
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
     protected $signature = 'jdb:set-cache';
-    private $emListe;
 
     /**
      * The console command description.
@@ -88,13 +89,20 @@ class CreateShowCache extends Command
                         'notif_jdb' => $notif,
                         'post_title' => $titleEm,
                         'courriel' => $contact,
-                    ], 720);
+                    ], 1440);
 
                     //Ajout de l'ID dans la listes d'émissions
                     $this->emListe[] = $idEm;
                 }
             }
         });
+
+        if (count($this->emListe) != 0){
+            Log::notice("Mise à jour de la liste des émissions.");
+            Cache::put('journal:emList', $this->emListe, 1400);
+        }else {
+            Log::notice("Aucune nouvelle émission dans la liste.");
+        }
         
         Log::info("Fin de la mise à jour de la cache des journaux de bord");
     }
