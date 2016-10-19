@@ -27,20 +27,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('jdb:set-cache')
-            ->dailyAt('00:30')
-            ->timezone('America/New_York');
+            ->hourly();
 
-        $schedule->command('jdb:set-cache')
-            ->dailyAt('06:30')
-            ->timezone('America/New_York');
-
-        $schedule->command('jdb:set-cache')
-            ->dailyAt('12:30')
-            ->timezone('America/New_York');
-
-        $schedule->command('jdb:set-cache')
-            ->dailyAt('18:30')
-            ->timezone('America/New_York');
+        $schedule->command()
+            ->everyThirtyMinutes('jdb:create-fdr');
     }
 
     /**
