@@ -14,6 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\CreateShowCache::class,
+        Commands\CreateFeuilleDeRoutes::class,
+        Commands\SendFeuillesDeRoutesEmails::class,
     ];
 
     /**
