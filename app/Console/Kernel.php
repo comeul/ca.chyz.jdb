@@ -26,9 +26,19 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('jdb:set-cache')
             ->dailyAt('00:30')
+            ->timezone('America/New_York');
+
+        $schedule->command('jdb:set-cache')
             ->dailyAt('06:30')
+            ->timezone('America/New_York');
+
+        $schedule->command('jdb:set-cache')
             ->dailyAt('12:30')
-            ->dailyAt('18:30');
+            ->timezone('America/New_York');
+
+        $schedule->command('jdb:set-cache')
+            ->dailyAt('18:30')
+            ->timezone('America/New_York');
     }
 
     /**
