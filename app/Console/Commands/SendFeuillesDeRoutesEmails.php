@@ -7,6 +7,7 @@ use App\Mail\AvertissementFeuilleDeRoute;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class SendFeuillesDeRoutesEmails extends Command
 {
