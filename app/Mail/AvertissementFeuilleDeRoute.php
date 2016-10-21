@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Notifications\FailedAvertissementFdRToSlack;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -46,5 +47,16 @@ class AvertissementFeuilleDeRoute extends Mailable
     public function routeNotificationForSlack()
     {
         return "https://hooks.slack.com/services/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";
+    }
+
+    /**
+     * The job failed to process.
+     *
+     * @param  Exception  $exception
+     * @return void
+     */
+    public function failed(Exception $exception)
+    {
+        Notification::send($this->fdr, new FailedAvertissementFdRToSlack($exception));
     }
 }
