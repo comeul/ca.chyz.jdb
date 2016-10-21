@@ -47,4 +47,15 @@ class AvertissementFeuilleDeRoute extends Mailable
     {
         return "https://hooks.slack.com/services/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";
     }
+
+    /**
+     * The job failed to process.
+     *
+     * @param  Exception  $exception
+     * @return void
+     */
+    public function failed(Exception $exception)
+    {
+        // Send user notification of failure, etc...
+    }
 }
