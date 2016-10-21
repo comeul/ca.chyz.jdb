@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Notifications\FailedAvertissementFdRToSlack;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -56,6 +57,6 @@ class AvertissementFeuilleDeRoute extends Mailable
      */
     public function failed(Exception $exception)
     {
-        // Send user notification of failure, etc...
+        Notification::send($this->fdr, new FailedAvertissementFdRToSlack($exception));
     }
 }
