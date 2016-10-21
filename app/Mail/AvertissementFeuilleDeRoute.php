@@ -3,13 +3,14 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Queue\SerializesModels;
 
 class AvertissementFeuilleDeRoute extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable, SerializesModels, Notifiable;
 
     public $emission;
     public $fdr;
@@ -35,5 +36,15 @@ class AvertissementFeuilleDeRoute extends Mailable
         return $this->from('programmation@chyz.ca')
             ->subject("Feuille de route - {$this->emission['post_title']} du {$this->fdr['creation_date']}")
             ->view('emails.avertissementFdR');
+    }
+
+    /**
+     * Route notifications for the Slack channel.
+     *
+     * @return string
+     */
+    public function routeNotificationForSlack()
+    {
+        return "https://hooks.slack.com/services/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";
     }
 }
