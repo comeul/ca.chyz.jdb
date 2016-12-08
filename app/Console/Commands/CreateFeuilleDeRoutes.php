@@ -71,7 +71,7 @@ class CreateFeuilleDeRoutes extends Command {
                         Log::notice("Feuille de route créée pour {$emission['post_title']}");
                     }
 
-                    if (!!$emission['notif_jdb']) {
+                    if ($emission['notif_jdb'] == true) {
                         Artisan::queue('jdb:send-emails', [
                             'emId' => $emission['ID'],
                         ]);
