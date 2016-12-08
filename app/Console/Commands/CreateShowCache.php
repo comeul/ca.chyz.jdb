@@ -86,7 +86,7 @@ class CreateShowCache extends Command
                         'journee' => $journeeEm,
                         'heure_from' => $fHeureFrom,
                         'heure_to' => $fHeureTo,
-                        'notif_jdb' => $notif,
+                        'notif_jdb' => !!$notif, //turn string to integer and inverse it. So "1" becomes "TRUE";
                         'post_title' => $titleEm,
                         'courriel' => $contact,
                     ], 1440);

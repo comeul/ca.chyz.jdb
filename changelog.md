@@ -1,5 +1,8 @@
 # JDB Helper
 
+## 1.1.1
+- Changement de la façon dont le script interprète la valeur "notif_jdb" provenant de WP.
+
 ## 1.1.0
 - Mise en place de notification slack sur erreur d'envoie de courriel. On se croise les doigts!
 
