@@ -1,5 +1,8 @@
 # JDB Helper
 
+## 1.1.2
+- Ajout des infos de provenance des courriels envoyés.
+
 ## 1.1.1
 - Changement de la façon dont le script interprète la valeur "notif_jdb" provenant de WP.
 
