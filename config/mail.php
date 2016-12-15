@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => 'hello@example.com',
-        'name' => 'Example',
+        'address' => 'programmation@chyz.ca',
+        'name' => 'Directeur-trice de la programmation',
     ],
 
     /*
