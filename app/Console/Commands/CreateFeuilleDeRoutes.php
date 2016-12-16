@@ -44,15 +44,13 @@ class CreateFeuilleDeRoutes extends Command {
      * @return mixed
      */
     public function handle() {
-        Log::info("Début de la création des feuilles de routes");
 
         $this->emListe->each(function ($item, $key) {
             $emission = collect(Cache::get("journal:ems:{$item}"));
 
             if (!$emission->isEmpty()) {
                 $remainingTime = $emission['heure_from']->diffInMinutes(Carbon::now());
-                if ($remainingTime <= 75) {
-                    Log::notice("Création d'une feuille de route pour {$emission['post_title']}");
+                if ($remainingTime <= 75) { // ici
 
                     $fdr = new Fdr;
                     $fdr->em_id = $emission['ID'];
@@ -66,12 +64,13 @@ class CreateFeuilleDeRoutes extends Command {
                     $fdr->save();
 
                     if ($fdr == false) {
-                        Log::warning("Erreur de la création de feuille de route pour {$emission['post_title']}");
+                        Log::critical("Erreur de la création de feuille de route pour {$emission['post_title']}");
                     } else {
                         Log::notice("Feuille de route créée pour {$emission['post_title']}");
                     }
 
                     if ($emission['notif_jdb'] == true) {
+                        Log::debug("Prêt à envoyer une notification courriel pour la feuille de route de {$emission['post_title']}.");
                         Artisan::queue('jdb:send-emails', [
                             'emId' => $emission['ID'],
                         ]);
@@ -86,6 +85,5 @@ class CreateFeuilleDeRoutes extends Command {
         });
 
         Cache::put('journal:emList', $this->newEmListe, 1400);
-        Log::info("Fin de la création des feuilles de routes");
     }
 }
