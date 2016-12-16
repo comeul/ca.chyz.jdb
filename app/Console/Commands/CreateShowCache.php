@@ -43,9 +43,7 @@ class CreateShowCache extends Command
      * @return mixed
      */
     public function handle()
-    {
-        Log::info("Début de la mise à jour de la cache des journaux de bord");
-        
+    {        
         $wp_prefix = env('WP_TABLE_PREFIX');     
         
         // va chercher les émissions publiées, magie disponible grâce au package 'corcel'
@@ -98,13 +96,11 @@ class CreateShowCache extends Command
         });
 
         if (count($this->emListe) != 0){
-            Log::notice("Mise à jour de la liste des émissions.");
+            Log::info("Cache: mise à jour de la liste des émissions.");
             Cache::put('journal:emList', $this->emListe, 1400);
         }else {
-            Log::notice("Aucune nouvelle émission dans la liste.");
+            Log::info("Cache: aucune modification nécessaire.");
         }
-        
-        Log::info("Fin de la mise à jour de la cache des journaux de bord");
     }
 
     private function getAjdDemValue($journee)
