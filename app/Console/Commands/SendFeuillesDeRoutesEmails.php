@@ -44,7 +44,6 @@ class SendFeuillesDeRoutesEmails extends Command
      */
     public function handle()
     {
-        Log::debug("Début de l'envoie de notification.");
         $this->emission = collect(Cache::get("journal:ems:{$this->argument('emId')}"));
 
         $fdrNonTermines = Fdr::where('em_id', $this->emission['ID'])
@@ -54,6 +53,5 @@ class SendFeuillesDeRoutesEmails extends Command
             Mail::to($this->emission['courriel'])->queue(new AvertissementFeuilleDeRoute($this->emission, $item)); //ici
             Log::notice("Courriel d'avertissement envoyé pour {$this->emission['post_title']}: {$item['creation_date']}");
         });
-        Log::debug("Fin de l'envoie de notification.");
     }
 }

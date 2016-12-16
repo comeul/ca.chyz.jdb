@@ -70,7 +70,6 @@ class CreateFeuilleDeRoutes extends Command {
                     }
 
                     if ($emission['notif_jdb'] == true) {
-                        Log::debug("Prêt à envoyer une notification courriel pour la feuille de route de {$emission['post_title']}.");
                         Artisan::queue('jdb:send-emails', [
                             'emId' => $emission['ID'],
                         ]);
