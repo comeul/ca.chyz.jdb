@@ -69,11 +69,14 @@ class CreateFeuilleDeRoutes extends Command {
                         Log::notice("Feuille de route créée pour {$emission['post_title']}");
                     }
 
-                    if ($emission['notif_jdb'] == true) {
-                        Artisan::queue('jdb:send-emails', [
-                            'emId' => $emission['ID'],
-                        ]);
-                    }
+                    /**
+                    * We've sent 100k email last month. THE FUCK. Deactivated until further notice.
+                    */
+                    // if ($emission['notif_jdb'] == true) {
+                    //     Artisan::queue('jdb:send-emails', [
+                    //         'emId' => $emission['ID'],
+                    //     ]);
+                    // }
                 }else{
                     // L'émission n'est pas proche, on a donc pas envoyé d'avertissement... Encore.
                     // On va rajouter l'ID à la nouvelle liste pour changer la cache et ainsi
