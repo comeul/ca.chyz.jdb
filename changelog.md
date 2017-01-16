@@ -1,5 +1,8 @@
 # JDB Helper
 
+## 1.1.3
+- Désactivé les notification de création de journal de bord. Sparkpost rapport 100k courriel en 1 mois, c'est louche.
+
 ## 1.1.2
 - Ajout des infos de provenance des courriels envoyés.
 
