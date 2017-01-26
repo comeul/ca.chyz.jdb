@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
-class CreateFeuilleDeRoutes extends Command {
+class CreateFeuilleDeRoutes extends Command
+{
     private $emListe;
     private $newEmListe;
 
@@ -32,7 +33,8 @@ class CreateFeuilleDeRoutes extends Command {
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->emListe = collect(Cache::pull('journal:emList'));
         $this->newEmListe = collect([]);
         parent::__construct();
@@ -43,7 +45,8 @@ class CreateFeuilleDeRoutes extends Command {
      *
      * @return mixed
      */
-    public function handle() {
+    public function handle()
+    {
 
         $this->emListe->each(function ($item, $key) {
             $emission = collect(Cache::get("journal:ems:{$item}"));
@@ -77,12 +80,15 @@ class CreateFeuilleDeRoutes extends Command {
                     //         'emId' => $emission['ID'],
                     //     ]);
                     // }
-                }else{
+                } else {
                     // L'émission n'est pas proche, on a donc pas envoyé d'avertissement... Encore.
                     // On va rajouter l'ID à la nouvelle liste pour changer la cache et ainsi
                     // ne pas repasser sur une émission qui aurait été envoyé.
                     $this->newEmListe->push($emission['ID']);
                 }
+            } else {
+                Log::alert("Emission empty?");
+                Log::debug($item);
             }
         });
 
