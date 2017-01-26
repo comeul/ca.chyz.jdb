@@ -34,6 +34,7 @@ class CreateShowCache extends Command
     public function __construct()
     {
         $this->emListe = [];
+        $this->titreEms = [];
         parent::__construct();
     }
 
@@ -43,13 +44,13 @@ class CreateShowCache extends Command
      * @return mixed
      */
     public function handle()
-    {        
-        $wp_prefix = env('WP_TABLE_PREFIX');     
+    {
+        $wp_prefix = env('WP_TABLE_PREFIX');
         
         // va chercher les émissions publiées, magie disponible grâce au package 'corcel'
         $emissions = Post::type('em')->status('publish')->get();
 
-        $emissions->each(function ($item, $key){
+        $emissions->each(function ($item, $key) {
             // On doit entrer dans la cache les émissions qui sont NOW +1 heures et NOW +12 heures.
             // La raison pour lequel on commence à Now+1 est parce que les feuilles de routes
             // sont créer jusqu'à 1:15 en avance, on ne veut donc pas ajouter une
@@ -75,7 +76,7 @@ class CreateShowCache extends Command
                     //Ajustement de l'heure ou l'émission se termine aussi, pour information.
                     $diffFromTo = $fHeureFrom->diffInMinutes($fHeureTo, false);
                     if ($diffFromTo<0) {
-                      $fHeureTo->addDay();
+                        $fHeureTo->addDay();
                     }
 
                     //Ajout des infos de cette émission en cache, si elle n'existent pas
@@ -89,23 +90,27 @@ class CreateShowCache extends Command
                         'courriel' => $contact,
                     ], 1440);
 
+                    // on popule l'array des emissions du jour, à fin de debug.
+                    array_push($this->titreEms, $titleEm);
+
                     //Ajout de l'ID dans la listes d'émissions
                     $this->emListe[] = $idEm;
                 }
             }
         });
 
-        if (count($this->emListe) != 0){
+        if (count($this->emListe) != 0) {
             Log::info("Cache: mise à jour de la liste des émissions.");
             Cache::put('journal:emList', $this->emListe, 1400);
-        }else {
+            Log::debug($this->titreEms);
+        } else {
             Log::info("Cache: aucune modification nécessaire.");
         }
     }
 
     private function getAjdDemValue($journee)
     {
-        // Génération d'une variable qui dit si l'émission est pour la journée 
+        // Génération d'une variable qui dit si l'émission est pour la journée
         // d'aujourd'hui ou de demain. Sera utile aussi plus bas dans le script.
         switch ($journee) {
             case $this->getTextualValueOfDay('today'):
@@ -116,7 +121,7 @@ class CreateShowCache extends Command
                 
             default:
                 return -1;
-            }
+        }
     }
 
     private function getTextualValueOfDay($when)

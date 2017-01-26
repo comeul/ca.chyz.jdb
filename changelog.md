@@ -1,5 +1,8 @@
 # JDB Helper
 
+## 1.1.4
+- Ajouts d'output dans les logs pour debug.
+
 ## 1.1.3
 - Désactivé les notification de création de journal de bord. Sparkpost rapport 100k courriel en 1 mois, c'est louche.
 
